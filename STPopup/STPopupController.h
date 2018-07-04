@@ -53,7 +53,8 @@ typedef NS_ENUM(NSUInteger, STPopupStyle) {
     /**
      Popup will be horizontally centered and sticked to bottom.
      */
-    STPopupStyleBottomSheet
+    STPopupStyleBottomSheet,
+    STPopupStyleTopSheet
 };
 
 typedef NS_ENUM(NSUInteger, STPopupTransitionStyle) {
@@ -79,6 +80,8 @@ typedef NS_ENUM(NSUInteger, STPopupTransitionStyle) {
  */
 @property (nonatomic, assign) STPopupStyle style;
 
+// 当 STPopupStyleTopSheet 时，设置距离顶部的距离
+@property (nonatomic, assign) CGFloat distanceToMarginTop;
 /**
  Transition style used in presenting and dismissing the popup.
  @see STPopupTransitionStyle

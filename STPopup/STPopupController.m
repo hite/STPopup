@@ -524,8 +524,10 @@ static NSMutableSet *_retainedPopupControllers;
     if (self.style == STPopupStyleBottomSheet) {
         containerViewY = _containerViewController.view.bounds.size.height - containerViewHeight;
         containerViewHeight += STPopupBottomSheetExtraHeight;
+    } else if(self.style == STPopupStyleTopSheet){
+        containerViewY = self.distanceToMarginTop > 0 ? self.distanceToMarginTop:30.f;
     }
-    
+
     _containerView.frame = CGRectMake((_containerViewController.view.bounds.size.width - containerViewWidth) / 2,
                                       containerViewY, containerViewWidth, containerViewHeight);
     _navigationBar.frame = CGRectMake(0, 0, containerViewWidth, preferredNavigationBarHeight);
@@ -662,6 +664,9 @@ static NSMutableSet *_retainedPopupControllers;
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    if (self.style == STPopupStyleTopSheet) {
+        return;
+    }
     UIView<UIKeyInput> *currentTextInput = [self getCurrentTextInputInView:_containerView];
     if (!currentTextInput) {
         return;
@@ -673,6 +678,9 @@ static NSMutableSet *_retainedPopupControllers;
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    if (self.style == STPopupStyleTopSheet) {
+        return;
+    }
     _keyboardInfo = nil;
     
     NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
